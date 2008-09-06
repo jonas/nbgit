@@ -128,7 +128,7 @@ public class GitCommand {
                 return;
             }
 
-            String relative = toGitPath(getRelative(root, base));
+            String relative = getRelative(root, base);
 
             ObjectId[] ids = {commit.getTree().getId()};
             TreeWalk walk = TreeWalk.forPath(repo, relative, ids);
@@ -433,19 +433,10 @@ public class GitCommand {
     }
 
     private static String getRelative(File root, File dir) {
-        return getRelative(root.getAbsolutePath(), dir.getAbsolutePath());
-    }
-
-    private static String getRelative(String root, String dir) {
         if (dir.equals(root)) {
             return "";
         }
-        return dir.replace(root + File.separator, "");
-    }
-
-    private static String toGitPath(String path) {
-        return File.separatorChar == '/'
-                ? path : path.replace(File.separator, "/");
+        return Repository.stripWorkDir(root, dir);
     }
 
     private static void put(Set<String> set, String relPath,
