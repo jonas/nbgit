@@ -48,6 +48,66 @@ made subject to such option by the copyright holder.
             <file name="org-nbgit-ui-status-OpenVersioningAction.instance">
                 <attr name="instanceClass" stringvalue="org.nbgit.ui.status.OpenVersioningAction"/>
             </file>
+            <!--
+            <file name="org-nbgit-ui-checkout-CheckoutAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.checkout.CheckoutAction"/>
+            </file>
+            <file name="org-nbgit-ui-project-ImportAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.project.ImportAction"/>
+            </file>
+            <file name="org-nbgit-ui-UpdateWithDependenciesAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.update.UpdateWithDependenciesAction"/>
+            </file>
+            -->
+            <file name="org-nbgit-ui-status-StatusAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.status.StatusAction"/>
+            </file>
+            <file name="org-nbgit-ui-diff-DiffAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.diff.DiffAction"/>
+            </file>
+            <file name="org-nbgit-ui-diff-ExportDiffAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.diff.ExportDiffAction"/>
+            </file>
+            <file name="org-nbgit-ui-update-UpdateAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.update.UpdateAction"/>
+            </file>
+            <file name="org-nbgit-ui-commit-CommitAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.commit.CommitAction"/>
+            </file>
+            <file name="org-nbgit-ui-commit-ExcludeFromCommitAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.commit.ExcludeFromCommitAction"/>
+            </file>
+            <!--
+            <file name="org-nbgit-ui-commit-ConflictResolvedAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.commit.ConflictResolvedAction"/>
+            </file>
+            <file name="org-nbgit-ui-copy-SwitchToAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.copy.SwitchToAction"/>
+            </file>
+            <file name="org-nbgit-ui-copy-MergeAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.copy.MergeAction"/>
+            </file>
+            <file name="org-nbgit-ui-blame-BlameAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.blame.BlameAction"/>
+            </file>
+            -->
+            <file name="org-nbgit-ui-log-SearchHistoryAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.log.SearchHistoryAction"/>
+            </file>
+            <file name="org-nbgit-ui-update-RevertModificationsAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.update.RevertModificationsAction"/>
+            </file>
+            <!--
+            <file name="org-nbgit-ui-update-ResolveConflictsAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.update.ResolveConflictsAction"/>
+            </file>
+            <file name="org-nbgit-ui-ignore-IgnoreAction.instance">
+                <attr name="instanceClass" stringvalue="org.nbgit.ui.ignore.IgnoreAction"/>
+            </file>
+            -->
+             <file name="org-nbgit-ui-properties-PropertiesAction.instance">
+                 <attr name="instanceClass" stringvalue="org.nbgit.ui.properties.PropertiesAction"/>
+             </file>
         </folder>
     </folder>
 
@@ -95,11 +155,13 @@ made subject to such option by the copyright holder.
         <folder name="AnnotationTypes">
             <file name="org-nbgit-Annotation.xml" url="annotation.xml"/>
         </folder>
+        <!--
         <folder name="UpToDateStatusProvider">
             <file name="org-nbgit-ui-annotate-AnnotationMarkInstaller.instance">
                 <attr name="instanceClass" stringvalue="org.nbgit.ui.annotate.AnnotationMarkInstaller"/>
             </file>
         </folder>
+        -->
     </folder>
 
     <folder name="VersioningOptionsDialog">
@@ -108,74 +170,73 @@ made subject to such option by the copyright holder.
         </file>
     </folder>
 
-    <!--
-       <folder name="OptionsDialog">
+    <folder name="OptionsDialog">
         <folder name="Actions">
-            <folder name="Subversion">
-                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.subversion.resources.Bundle"/>
+            <folder name="Git">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.nbgit.Bundle"/>
 
                 <file name="OpenVersioning.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-status-OpenVersioningAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-status-OpenVersioningAction.instance"/>
                 </file>
+                <!--
                 <file name="CheckoutAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-checkout-CheckoutAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-checkout-CheckoutAction.instance"/>
                 </file>
                 <file name="ImportAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-project-ImportAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-project-ImportAction.instance"/>
                 </file>
                 <file name="UpdateWithDependenciesAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-UpdateWithDependenciesAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-UpdateWithDependenciesAction.instance"/>
                 </file>
-
+                -->
                 <file name="StatusAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-status-StatusAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-status-StatusAction.instance"/>
                 </file>
                 <file name="DiffAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-diff-DiffAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-diff-DiffAction.instance"/>
                 </file>
                 <file name="UpdateAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-update-UpdateAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-update-UpdateAction.instance"/>
                 </file>
                 <file name="CommitAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-commit-CommitAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-commit-CommitAction.instance"/>
                 </file>
                 <file name="ExcludeFromCommitAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-commit-ExcludeFromCommitAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-commit-ExcludeFromCommitAction.instance"/>
                 </file>
+                <!--
                 <file name="ConflictResolvedAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-commit-ConflictResolvedAction.instance"/>
-                </file>
-
-                <file name="CreateCopyAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-copy-CreateCopyAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-commit-ConflictResolvedAction.instance"/>
                 </file>
                 <file name="SwitchToAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-copy-SwitchToAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-copy-SwitchToAction.instance"/>
                 </file>
                 <file name="MergeAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-copy-MergeAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-copy-MergeAction.instance"/>
                 </file>
                 <file name="BlameAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-blame-BlameAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-blame-BlameAction.instance"/>
                 </file>
+                -->
                 <file name="SearchHistoryAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-history-SearchHistoryAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-log-SearchHistoryAction.instance"/>
                 </file>
                 <file name="RevertModificationsAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-update-RevertModificationsAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-update-RevertModificationsAction.instance"/>
                 </file>
+                <!--
                 <file name="ResolveConflictsAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-update-ResolveConflictsAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-update-ResolveConflictsAction.instance"/>
                 </file>
                 <file name="IgnoreAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-ignore-IgnoreAction.instance"/>
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-ignore-IgnoreAction.instance"/>
                 </file>
-                <file name="SvnPropertiesAction.shadow">
-                    <attr name="originalFile" stringvalue="Actions/Subversion/org-netbeans-modules-subversion-ui-properties-SvnPropertiesAction.instance"/>
+                -->
+                <file name="PropertiesAction.shadow">
+                    <attr name="originalFile" stringvalue="Actions/Git/org-nbgit-ui-properties-PropertiesAction.instance"/>
                 </file>
             </folder>
         </folder>
     </folder>
-    -->
 
 </filesystem>
