@@ -73,6 +73,7 @@ import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.openide.util.RequestProcessor;
 import org.openide.util.Utilities;
+import org.openide.util.actions.SystemAction;
 
 /**
  * Responsible for coloring file labels and file icons in the IDE and providing
@@ -249,7 +250,8 @@ public class GitAnnotator extends VCSAnnotator {
 
         List<Action> actions = new ArrayList<Action>(INITIAL_ACTION_ARRAY_LENGTH);
         if (destination == VCSAnnotator.ActionDestination.MainMenu) {
-            actions.add(new InitAction(loc.getString("CTL_MenuItem_Create"), ctx)); // NOI18N
+            actions.add(SystemAction.get(InitAction.class));
+            //actions.add(new InitAction(loc.getString("CTL_MenuItem_Create"), ctx)); // NOI18N
             actions.add(null);
             actions.add(new StatusAction(loc.getString("CTL_PopupMenuItem_Status"), ctx)); // NOI18N
             actions.add(new DiffAction(loc.getString("CTL_PopupMenuItem_Diff"), ctx)); // NOI18N

@@ -42,43 +42,82 @@
 package org.nbgit.ui;
 
 import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
 import javax.swing.Action;
+import org.nbgit.StatusInfo;
 import org.nbgit.util.GitUtils;
 import org.netbeans.modules.versioning.spi.VCSContext;
 import org.openide.LifecycleManager;
+import org.openide.nodes.Node;
+import org.openide.util.HelpCtx;
+import org.openide.util.actions.NodeAction;
 
 /**
  * Base for all context-sensitive Git actions.
  *
  * @author Padraig O'Briain
  */
-public abstract class ContextAction extends AbstractAction {
+public class ContextAction extends NodeAction {
 
-    protected final VCSContext context;
+    VCSContext context;
 
-    public ContextAction(String name, VCSContext context) {
-        this.context = context;
+    public ContextAction(String name) {
         putValue(Action.NAME, name);
     }
 
     @Override
-    public boolean isEnabled() {
-        return GitUtils.getRootFile(context) != null;
+    public String getName() {
+        return (String) this.getValue(Action.NAME);
     }
 
-    /**
-     * Synchronizes memory modificatios with disk and calls
-     * {@link  #performContextAction}.
-     */
-    public void actionPerformed(final ActionEvent event) {
-        // TODO try to save files in invocation context only
-        // list somehow modified file in the context and save
-        // just them.
-        // The same (global save) logic is in CVS, no complaint
-        LifecycleManager.getDefault().saveAll();
-        performAction(event);
+    @Override
+    public HelpCtx getHelpCtx() {
+        return new HelpCtx(getClass());
     }
 
-    protected abstract void performAction(ActionEvent event);
+    @Override
+    protected void performAction(Node[] nodes) {
+    }
+
+    @Override
+    protected boolean enable(Node[] nodes) {
+        return GitUtils.getCurrentContext(nodes).getRootFiles() != null;
+    }
+
+    protected VCSContext getContext(Node[] nodes) {
+        return GitUtils.getCurrentContext(nodes, getFileEnabledStatus(), getDirectoryEnabledStatus());
+    }
+
+    protected int getFileEnabledStatus() {
+        return ~0;
+    }
+
+    protected int getDirectoryEnabledStatus() {
+        return StatusInfo.STATUS_MANAGED & ~StatusInfo.STATUS_NOTVERSIONED_EXCLUDED;
+    }
+
+    //protected abstract void performAction(ActionEvent event);
+    /** Be sure nobody overwrites */
+    @Override
+    public final boolean isEnabled() {
+        return super.isEnabled();
+    }
+
+    /** Be sure nobody overwrites */
+    @Override
+    public final void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+    }
+
+    /** Be sure nobody overwrites */
+    @Override
+    public final void actionPerformed(ActionEvent event) {
+        super.actionPerformed(event);
+    }
+
+    /** Be sure nobody overwrites */
+    @Override
+    public final void performAction() {
+        super.performAction();
+    }
+
 }

@@ -78,6 +78,7 @@ import org.netbeans.modules.versioning.util.VersioningListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.RequestProcessor;
@@ -93,14 +94,14 @@ public class CommitAction extends ContextAction {
     static final String RECENT_COMMIT_MESSAGES = "recentCommitMessage"; // NOI18N
     static final String SIGN_OFF_MESSAGE = "signOffMessage"; // NOI18N
 
-    public CommitAction(String name, VCSContext context) {
-        super(name, context);
+    public CommitAction(String name) {
+        super(name);
     }
 
     @Override
-    public boolean isEnabled() {
+    protected boolean enable(Node[] nodes) {
         StatusCache cache = Git.getInstance().getStatusCache();
-        return cache.containsFileOfStatus(context, StatusInfo.STATUS_LOCAL_CHANGE);
+        return cache.containsFileOfStatus(getContext(context), StatusInfo.STATUS_LOCAL_CHANGE);
     }
 
     public void performAction(ActionEvent e) {

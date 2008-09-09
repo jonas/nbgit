@@ -65,9 +65,11 @@ made subject to such option by the copyright holder.
             <file name="org-nbgit-ui-diff-DiffAction.instance">
                 <attr name="instanceClass" stringvalue="org.nbgit.ui.diff.DiffAction"/>
             </file>
+            <!--
             <file name="org-nbgit-ui-diff-ExportDiffAction.instance">
                 <attr name="instanceClass" stringvalue="org.nbgit.ui.diff.ExportDiffAction"/>
             </file>
+            -->
             <file name="org-nbgit-ui-update-UpdateAction.instance">
                 <attr name="instanceClass" stringvalue="org.nbgit.ui.update.UpdateAction"/>
             </file>
