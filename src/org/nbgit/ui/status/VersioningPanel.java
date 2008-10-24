@@ -39,6 +39,7 @@ import org.nbgit.GitModuleConfig;
 import org.nbgit.GitProgressSupport;
 import org.nbgit.StatusInfo;
 import org.nbgit.StatusCache;
+import org.nbgit.task.StatusTask;
 import org.nbgit.ui.GitFileNode;
 import org.nbgit.ui.commit.CommitAction;
 import org.nbgit.ui.diff.DiffAction;
@@ -314,10 +315,10 @@ class VersioningPanel extends JPanel implements ExplorerManager.Provider, Prefer
             if (branch == null) {
                 branch = Constants.HEAD;
             }
-            return new String[]{
-                        branch,
-                        id != null ? id.toString() : null
-                    };
+            return new String[] {
+                branch,
+                id != null ? id.name() : null
+            };
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -398,10 +399,11 @@ class VersioningPanel extends JPanel implements ExplorerManager.Provider, Prefer
             return;
         }
         RequestProcessor rp = Git.getInstance().getRequestProcessor(repository);
-        gitProgressSupport = new GitProgressSupport() {
+        gitProgressSupport = new StatusTask(context) {
 
+            @Override
             public void perform() {
-                StatusAction.executeStatus(context, this);
+                super.perform();
                 setupModels();
             }
         };
