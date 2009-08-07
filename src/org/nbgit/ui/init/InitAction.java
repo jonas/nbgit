@@ -54,7 +54,7 @@ import org.nbgit.GitProgressSupport;
 import org.nbgit.OutputLogger;
 import org.nbgit.task.StatusTask;
 import org.nbgit.ui.ContextAction;
-import org.nbgit.util.GitIgnore;
+import org.nbgit.util.exclude.Excludes;
 import org.nbgit.util.GitProjectUtils;
 import org.nbgit.util.GitUtils;
 import org.netbeans.api.queries.SharabilityQuery;
@@ -244,8 +244,7 @@ public class InitAction extends ContextAction {
         GitProgressSupport supportStatus = new StatusTask(context) {
 
             @Override
-            public void perform() {
-                super.perform();
+            public void performAfter() {
                 git.versionedFilesChanged();
                 git.refreshAllAnnotations();
             }
@@ -275,7 +274,7 @@ public class InitAction extends ContextAction {
             File file = new File(rootFile, path);
 
             if (share == SharabilityQuery.MIXED &&
-                    !GitIgnore.isSharable(file)) {
+                    !Excludes.isSharable(file)) {
                 continue;
             }
             files.add(file);

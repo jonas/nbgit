@@ -404,8 +404,7 @@ class MultiDiffPanel extends javax.swing.JPanel implements ActionListener, DiffS
         executeStatusSupport = new StatusTask(context) {
 
             @Override
-            public void perform() {
-                super.perform();
+            public void performAfter() {
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run() {

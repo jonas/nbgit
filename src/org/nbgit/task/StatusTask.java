@@ -57,14 +57,14 @@ import org.netbeans.modules.versioning.spi.VCSContext;
  */
 public class StatusTask extends GitProgressSupport {
 
-    private VCSContext context;
+    private final VCSContext context;
 
     public StatusTask(VCSContext context) {
         this.context = context;
     }
 
     @Override
-    protected void perform() {
+    final protected void perform() {
         if (context == null || context.getRootFiles().size() == 0) {
             return;
         }
@@ -102,6 +102,9 @@ public class StatusTask extends GitProgressSupport {
                 cache.refresh(root, StatusCache.REPOSITORY_STATUS_UNKNOWN);
             }
         }
+        performAfter();
     }
 
+    protected void performAfter() {
+    }
 }

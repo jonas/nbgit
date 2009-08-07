@@ -402,8 +402,7 @@ class VersioningPanel extends JPanel implements ExplorerManager.Provider, Prefer
         gitProgressSupport = new StatusTask(context) {
 
             @Override
-            public void perform() {
-                super.perform();
+            protected void performAfter() {
                 setupModels();
             }
         };
