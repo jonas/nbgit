@@ -47,14 +47,8 @@ public class PathPatternTest extends TestCase {
     };
 
     public void testNoWildCard() {
-        for (int i = 1; i < 256; i++) {
-            String string = String.valueOf(Character.toChars(i));
-            if (PathPattern.isWildcard(string.charAt(0)) ||
-                    string.startsWith("!") ||
-                    string.startsWith("/") ||
-                    string.length() == 0) {
-                continue;
-            }
+        String reject = CharacterSequence.WILDCARD_CHARS + "!/";
+        for (String string : CharacterSequence.create(1, 256, reject)) {
             pattern(string).
                     matchesFile(string).
                     matchesDir(string);
@@ -65,9 +59,7 @@ public class PathPatternTest extends TestCase {
     }
 
     public void testSingleGlob() {
-        for (int i = 0; i < 256; i++) {
-            char c = Character.toChars(0)[0];
-            String string = String.valueOf(c);
+        for (String string : CharacterSequence.create(0, 256, "!/")) {
             pattern(string).
                     matchesFile(string).
                     matchesDir(string);
@@ -136,14 +128,14 @@ public class PathPatternTest extends TestCase {
 
     public void testMatchDirectory() {
         pattern("path/").
-                matchesFile("path/to/File.java").
-                matchesDir("path/to").
                 matchesDir("path").
+                matchesDir("subdir/path").
+                doesNotMatchFile("path/to/File.java").
                 doesNotMatchFile("path");
         pattern("path/subdir/").
-                matchesFile("path/subdir/File.java").
                 matchesDir("path/subdir").
                 doesNotMatchDir("path").
+                doesNotMatchFile("path/subdir/File.java").
                 doesNotMatchFile("some/path/subdir/File.java");
     }
 
@@ -163,11 +155,13 @@ public class PathPatternTest extends TestCase {
 
         private TestBuilder from(String excludeOrigin) {
             assertTrue(excludeOrigin.startsWith("/"));
-            StringBuilder builder = new StringBuilder(excludeOrigin).deleteCharAt(0);
+            StringBuilder builder = new StringBuilder(excludeOrigin);
             if (excludeOrigin.equals("/.git/info/exclude")) {
                 builder.setLength(0);
             } else if (excludeOrigin.endsWith("/.gitignore")) {
-                builder.setLength(builder.lastIndexOf("/") + 1);
+                builder.setLength(builder.lastIndexOf("/"));
+                if (builder.length() > 0)
+                    builder.deleteCharAt(0);
             } else {
                 fail("Unknown exclude origin: " + excludeOrigin);
             }

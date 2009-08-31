@@ -50,7 +50,7 @@ public abstract class PathPattern {
         }
     }
 
-    public static boolean isWildcard(char c) {
+    private static boolean isWildcard(char c) {
         return c == '*' || c == '[' || c == '?' || c == '\\';
     }
 
@@ -89,7 +89,7 @@ public abstract class PathPattern {
 
     public boolean matches(String path, boolean isDirectory, String basePath) {
         if (matchDir && !isDirectory) {
-            return matchesParentDirectory(path, basePath);
+            return false;
         }
         if (matchFileName && matchesFileName(path)) {
             return true;
@@ -97,18 +97,8 @@ public abstract class PathPattern {
         if (basePath.length() > 0 && !path.startsWith(basePath)) {
             return false;
         }
-        if (matchesPathName(path, basePath)) {
-            return true;
-        }
-        return matchesParentDirectory(path, basePath);
-    }
 
-    private boolean matchesParentDirectory(String path, String basePath) {
-        int end = path.lastIndexOf('/');
-        if (end == -1 || end <= basePath.length()) {
-            return false;
-        }
-        return matches(path.substring(0, end), true, basePath);
+        return matchesPathName(path, basePath);
     }
 
     protected abstract boolean matchesFileName(String path);
@@ -146,8 +136,9 @@ public abstract class PathPattern {
 
         @Override
         protected boolean matchesPathName(String path, String basePath) {
-            return path.length() - basePath.length() == pattern.length() &&
-                    path.startsWith(pattern, basePath.length());
+            int baseLength = basePath.length() > 0 ? basePath.length() + 1 : 0;
+            return path.length() - baseLength == pattern.length() &&
+                    path.startsWith(pattern, baseLength);
         }
     }
 
@@ -193,7 +184,8 @@ public abstract class PathPattern {
 
         @Override
         protected boolean matchesPathName(String path, String basePath) {
-            return FnMatch.fnmatch(pattern, path, basePath.length(), FnMatch.Flag.PATHNAME);
+            int baseLength = basePath.length() > 0 ? basePath.length() + 1 : 0;
+            return FnMatch.fnmatch(pattern, path, baseLength, FnMatch.Flag.PATHNAME);
         }
     }
 }

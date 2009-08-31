@@ -41,13 +41,17 @@
  */
 package org.nbgit;
 
+import java.net.URISyntaxException;
 import java.util.logging.Level;
+import javax.swing.JComponent;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.Cancellable;
+import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
 import org.openide.util.RequestProcessor;
 import org.openide.util.TaskListener;
+import org.spearce.jgit.transport.URIish;
 
 /**
  *
@@ -60,7 +64,6 @@ public abstract class GitProgressSupport implements Runnable, Cancellable {
     private volatile boolean canceled;
     private ProgressHandle progressHandle = null;
     private String displayName = ""; // NOI18N
-    private String originalDisplayName = ""; // NOI18N
     private OutputLogger logger;
     private String repositoryRoot;
     private RequestProcessor.Task task;
@@ -78,6 +81,10 @@ public abstract class GitProgressSupport implements Runnable, Cancellable {
             }
         });
         return task;
+    }
+
+    public JComponent getProgressComponent() {
+        return ProgressHandleFactory.createProgressComponent(getProgressHandle());
     }
 
     public void setRepositoryRoot(String repositoryRoot) {
@@ -134,10 +141,6 @@ public abstract class GitProgressSupport implements Runnable, Cancellable {
     }
 
     public void setDisplayName(String displayName) {
-        if (originalDisplayName.equals("")) // NOI18N
-        {
-            originalDisplayName = displayName;
-        }
         this.displayName = displayName;
         setProgress();
     }
@@ -175,8 +178,16 @@ public abstract class GitProgressSupport implements Runnable, Cancellable {
 
     public OutputLogger getLogger() {
         if (logger == null) {
-            logger = Git.getInstance().getLogger(repositoryRoot);
+            logger = OutputLogger.getLogger(repositoryRoot);
         }
         return logger;
+    }
+
+    public URIish getRepositoryRoot() {
+        try {
+            return new URIish(repositoryRoot);
+        } catch (URISyntaxException ex) {
+            return new URIish();
+        }
     }
 }

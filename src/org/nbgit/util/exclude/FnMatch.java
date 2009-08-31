@@ -198,6 +198,10 @@ public class FnMatch {
         boolean negate, ok;
         char c, c2;
 
+        if (patternPos >= pattern.length()) {
+            return RANGE_ERROR;
+        }
+
         /*
          * A bracket expression starting with an unquoted circumflex
          * character produces unspecified results (IEEE 1003.2-1992,
@@ -205,7 +209,8 @@ public class FnMatch {
          * consistency with the regular expression syntax.
          * J.T. Conklin (conklin@ngai.kaleida.com)
          */
-        negate = pattern.charAt(patternPos) == '!' || pattern.charAt(patternPos) == '^';
+        c = pattern.charAt(patternPos);
+        negate = c == '!' || c == '^';
         if (negate) {
             ++patternPos;
         }
